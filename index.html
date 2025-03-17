@@ -25,6 +25,15 @@
                 <input type="radio" id="ar" name="language" value="ar" onchange="changeTemplate()" checked />
                 <label for="ar">العربية</label>
             </div>
+
+            <div class="logo-option">
+                <h2>إضافة شعار بن لادن القابضة</h2>
+                <input type="radio" id="withLogo" name="logo" value="yes" onchange="changeTemplate()" />
+                <label for="withLogo">نعم</label>
+                <input type="radio" id="withoutLogo" name="logo" value="no" onchange="changeTemplate()" checked />
+                <label for="withoutLogo">لا</label>
+            </div>
+
             <input type="text" id="nameInput" placeholder="الاسم" oninput="generateCard()" />
             <button onclick="downloadCard()" class="download-btn">Download</button>
         </div>
@@ -35,15 +44,15 @@
         const ctx = canvas.getContext("2d");
 
         // Set high-resolution scaling
-        const scaleFactor = 2; // Adjust for higher quality (e.g., 2 for 2x resolution)
+        const scaleFactor = 2; // Adjust for higher quality
         canvas.width = 400 * scaleFactor;
         canvas.height = 600 * scaleFactor;
-        canvas.style.width = "400px"; // Keep displayed size same
-        canvas.style.height = "600px"; // Keep displayed size same
-        ctx.scale(scaleFactor, scaleFactor); // Scale everything to maintain quality
+        canvas.style.width = "400px";
+        canvas.style.height = "600px";
+        ctx.scale(scaleFactor, scaleFactor);
 
         const template = new Image();
-        template.src = "eid-card-ar.jpg"; // Default image is Arabic
+        template.src = "eid-card-ar.jpg"; // Default template (Arabic without logo)
 
         template.onload = function () {
             generateCard();
@@ -51,7 +60,14 @@
 
         function changeTemplate() {
             const selectedLanguage = document.querySelector('input[name="language"]:checked').value;
-            template.src = selectedLanguage === "eng" ? "eid-card-en.jpg" : "eid-card-ar.jpg";
+            const addLogo = document.querySelector('input[name="logo"]:checked').value === "yes";
+
+            if (selectedLanguage === "eng") {
+                template.src = addLogo ? "eid-card-en.jpg" : "eid-card-en-logo.jpg";
+            } else {
+                template.src = addLogo ? "eid-card-ar.jpg" : "eid-card-ar-logo.jpg";
+            }
+
             template.onload = function () {
                 generateCard();
             };
