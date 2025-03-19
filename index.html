@@ -15,27 +15,33 @@
     <div class="container">
         <h2>يسر شركة بمكو للخدمات ان تهنئ موظفيها بقدوم عيد الفطر المبارك</h2>
 
-        <canvas id="greetingCanvas" width="400" height="600"></canvas>
+        <div class="inner-container">
+            <canvas id="greetingCanvas" width="400" height="600"></canvas>
 
-        <div class="form-group">
-            <div class="lang">
-                <h2>اختر لغة التصميم</h2>
-                <input type="radio" id="eng" name="language" value="eng" onchange="changeTemplate()" />
-                <label for="eng">English</label>
-                <input type="radio" id="ar" name="language" value="ar" onchange="changeTemplate()" checked />
-                <label for="ar">العربية</label>
+            <div class="form-group">
+                <div class="lang">
+                    <h2>اختر لغة التصميم</h2>
+                    <input type="radio" id="eng" name="language" value="eng" onchange="changeTemplate()" />
+                    <label for="eng">English</label>
+                    <input type="radio" id="ar" name="language" value="ar" onchange="changeTemplate()" checked />
+                    <label for="ar">العربية</label>
+                </div>
+
+                <div class="logo-option">
+                    <h2>إضافة شعار بن لادن القابضة</h2>
+                    <input type="radio" id="withLogo" name="logo" value="yes" onchange="changeTemplate()" />
+                    <label for="withLogo">نعم</label>
+                    <input type="radio" id="withoutLogo" name="logo" value="no" onchange="changeTemplate()" checked />
+                    <label for="withoutLogo">لا</label>
+                </div>
+
+                <input type="text" id="nameInput" placeholder="الاسم" oninput="generateCard()" />
+                <select title="company" id="company" onchange="changeTemplate()">
+                    <option value="bemcoServices">شركة بمكو للخدمات</option>
+                    <option value="arabianBemco">شركة بمكو العربية للمقاولات</option>
+                </select>
+                <button onclick="downloadCard()" class="download-btn">Download</button>
             </div>
-
-            <div class="logo-option">
-                <h2>إضافة شعار بن لادن القابضة</h2>
-                <input type="radio" id="withLogo" name="logo" value="yes" onchange="changeTemplate()" />
-                <label for="withLogo">نعم</label>
-                <input type="radio" id="withoutLogo" name="logo" value="no" onchange="changeTemplate()" checked />
-                <label for="withoutLogo">لا</label>
-            </div>
-
-            <input type="text" id="nameInput" placeholder="الاسم" oninput="generateCard()" />
-            <button onclick="downloadCard()" class="download-btn">Download</button>
         </div>
     </div>
 
@@ -52,7 +58,7 @@
         ctx.scale(scaleFactor, scaleFactor);
 
         const template = new Image();
-        template.src = "eid-card-ar-logo.jpg"; // Default template (Arabic without logo)
+        template.src = "./imgs/bemcoServices/eid-card-ar-logo.jpg"; // Default template
 
         template.onload = function () {
             generateCard();
@@ -60,12 +66,19 @@
 
         function changeTemplate() {
             const selectedLanguage = document.querySelector('input[name="language"]:checked').value;
-            const addLogo = document.querySelector('input[name="logo"]:checked').value === "yes";
+            const addLogo = document.querySelector('input[name="logo"]:checked').value === "no";
+            const selectedCompany = document.getElementById("company").value;
+
+            let companyFolder = selectedCompany === "bemcoServices" ? "bemcoServices" : "arabianBemco";
 
             if (selectedLanguage === "eng") {
-                template.src = addLogo ? "eid-card-en.jpg" : "eid-card-en-logo.jpg";
+                template.src = addLogo
+                    ? `./imgs/${companyFolder}/eid-card-en-logo.jpg`
+                    : `./imgs/${companyFolder}/eid-card-en.jpg`;
             } else {
-                template.src = addLogo ? "eid-card-ar.jpg" : "eid-card-ar-logo.jpg";
+                template.src = addLogo
+                    ? `./imgs/${companyFolder}/eid-card-ar-logo.jpg`
+                    : `./imgs/${companyFolder}/eid-card-ar.jpg`;
             }
 
             template.onload = function () {
