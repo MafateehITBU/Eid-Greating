@@ -15,30 +15,40 @@ h2 {
 
 .inner-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     gap: 20px;
     width: 100%;
-    height: 80vh;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.canvas-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
 }
 
 canvas {
-    width: 50%;
+    width: 100%;
     max-width: 400px;
     height: auto;
     border: 1px solid #ccc;
 }
 
-.form-group {
-    width: 50%;
+.form-container {
+    width: 100%;
     max-width: 600px;
+}
+
+.form-group {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-right: -200px;
+    gap: 15px;
 }
-
 
 .lang {
     margin-bottom: 10px;
@@ -50,13 +60,19 @@ input[type='radio'] {
     accent-color: #033479;
 }
 
+input[type='text'],
+select,
+.download-btn {
+    width: 100%;
+    max-width: 300px;
+}
+
 input[type='text'] {
     margin-bottom: 10px;
     padding: 8px;
     font-size: 16px;
     border-radius: 6px;
     border: 1px solid lightgrey;
-    width: 35%;
     text-align: right;
     direction: rtl;
     transition: all 0.3s ease-in-out;
@@ -68,7 +84,6 @@ select {
     font-size: 16px;
     border-radius: 6px;
     border: 1px solid lightgrey;
-    width: 36%;
     text-align: right;
     direction: rtl;
     transition: all 0.3s ease-in-out;
@@ -99,7 +114,6 @@ input[type='text']:focus {
     font-size: 15px;
     font-weight: 500;
     cursor: pointer;
-    width: 36%;
     height: 40px;
     transition: 0.4s;
 }
