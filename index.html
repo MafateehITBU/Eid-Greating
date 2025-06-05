@@ -14,18 +14,10 @@
 <body>
     <div class="container">
         <h2>يسر شركة بمكو للخدمات ان تهنئ موظفيها بقدوم عيد الأضحى المبارك</h2>
-
+<div class="lang"> <h2></h2></div>
         <canvas id="greetingCanvas" width="400" height="600"></canvas>
 
         <div class="form-group">
-            <div class="lang">
-                <h2>اختر لغة التصميم</h2>
-                <input type="radio" id="eng" name="language" value="eng" onchange="changeTemplate()" />
-                <label for="eng">English</label>
-                <input type="radio" id="ar" name="language" value="ar" onchange="changeTemplate()" checked />
-                <label for="ar">العربية</label>
-            </div>
-
             <input type="text" id="nameInput" placeholder="الاسم" oninput="generateCard()" />
             <select title="company" id="company" onchange="changeTemplate()">
                 <option value="bemcoServices">شركة بمكو للخدمات</option>
@@ -55,16 +47,9 @@
         };
 
         function changeTemplate() {
-            const selectedLanguage = document.querySelector('input[name="language"]:checked').value;
             const selectedCompany = document.getElementById("company").value;
-            
             let companyFolder = selectedCompany === "bemcoServices" ? "bemcoServices" : "arabianBemco";
-            
-            if (selectedLanguage === "eng") {
-                template.src = `./imgs/${companyFolder}/eid-card-en.jpg`;
-            } else {
-                template.src = `./imgs/${companyFolder}/eid-card-ar.jpg`;
-            }
+            template.src = `./imgs/${companyFolder}/eid-card-ar.jpg`;
 
             template.onload = function () {
                 generateCard();
